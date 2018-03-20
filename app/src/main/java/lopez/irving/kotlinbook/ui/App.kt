@@ -1,7 +1,7 @@
 package lopez.irving.kotlinbook.ui
 
 import android.app.Application
-import lopez.irving.kotlinbook.ui.utils.DelegatesExt
+import lopez.irving.kotlinbook.extensions.DelegatesExt
 
 /**
  *

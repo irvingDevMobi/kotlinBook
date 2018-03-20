@@ -1,4 +1,4 @@
-package lopez.irving.kotlinbook.data
+package lopez.irving.kotlinbook.data.server
 
 /**
  *

@@ -1,4 +1,4 @@
-package lopez.irving.kotlinbook.ui.utils
+package lopez.irving.kotlinbook.extensions
 
 import kotlin.reflect.KProperty
 

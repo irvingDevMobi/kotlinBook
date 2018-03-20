@@ -9,7 +9,9 @@ import kotlinx.android.synthetic.main.item_forecast.view.*
 import lopez.irving.kotlinbook.R
 import lopez.irving.kotlinbook.domain.model.Forecast
 import lopez.irving.kotlinbook.domain.model.ForecastList
-import lopez.irving.kotlinbook.ui.utils.ctx
+import lopez.irving.kotlinbook.extensions.ctx
+import java.text.DateFormat
+import java.util.*
 
 /**
  *
@@ -37,12 +39,17 @@ class ForecastListAdapter(private val weekForecast: ForecastList, private val it
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
                 Picasso.with(itemView.ctx).load(iconUrl).into(itemView.icon)
-                itemView.date.text = date
+                itemView.date.text = convertDate(date)
                 itemView.description.text = description
                 itemView.maxTemperature.text = "$high"
                 itemView.minTemperature.text = "$low"
                 itemView.setOnClickListener { itemClick(this) }
             }
+        }
+
+        private fun convertDate(date: Long): String {
+            val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+            return df.format(date)
         }
     }
 }
