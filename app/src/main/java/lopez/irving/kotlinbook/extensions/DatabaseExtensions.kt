@@ -23,3 +23,5 @@ fun <T : Any> SelectQueryBuilder.parseList(parser: (Map<String, Any?>) -> T): Li
 fun SQLiteDatabase.clear(tableName: String) {
     execSQL("delete from $tableName")
 }
+
+fun SelectQueryBuilder.byId(id: Long) = whereSimple("_id = ?", id.toString())

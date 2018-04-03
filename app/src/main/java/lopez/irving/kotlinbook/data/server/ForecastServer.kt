@@ -2,6 +2,7 @@ package lopez.irving.kotlinbook.data.server
 
 import lopez.irving.kotlinbook.data.db.ForecastDb
 import lopez.irving.kotlinbook.domain.datasource.ForecastDataSource
+import lopez.irving.kotlinbook.domain.model.Forecast
 import lopez.irving.kotlinbook.domain.model.ForecastList
 
 /**
@@ -18,4 +19,6 @@ class ForecastServer(private val dataMapper: ServerDataMapper = ServerDataMapper
         forecastDb.saveForecast(converted)
         return forecastDb.requestForecastByZipCode(zipCode, date)
     }
+
+    override fun requestDayForecast(id: Long): Forecast? = throw UnsupportedOperationException()
 }

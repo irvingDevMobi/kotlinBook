@@ -4,11 +4,9 @@ import lopez.irving.kotlinbook.data.db.mappers.DbDataMapper
 import lopez.irving.kotlinbook.data.db.model.CityForecast
 import lopez.irving.kotlinbook.data.db.model.DayForecast
 import lopez.irving.kotlinbook.domain.datasource.ForecastDataSource
+import lopez.irving.kotlinbook.domain.model.Forecast
 import lopez.irving.kotlinbook.domain.model.ForecastList
-import lopez.irving.kotlinbook.extensions.clear
-import lopez.irving.kotlinbook.extensions.parseList
-import lopez.irving.kotlinbook.extensions.parseOpt
-import lopez.irving.kotlinbook.extensions.toVarargArray
+import lopez.irving.kotlinbook.extensions.*
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 
@@ -27,6 +25,15 @@ class ForecastDb(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelp
         val city = select(CityForecastTable.NAME).whereSimple("${CityForecastTable.ID} = ?", zipCode.toString())
                 .parseOpt { CityForecast(HashMap(it), dailyForecast) }
         if (city != null) dataMapper.convertToDomain(city) else null
+    }
+
+    override fun requestDayForecast(id: Long): Forecast? = forecastDbHelper.use {
+        val forecast = select(DayForecastTable.NAME).byId(id).parseOpt { DayForecast(HashMap(it)) }
+        if (forecast == null) {
+            null
+        } else {
+            dataMapper.convertDayToDomain(forecast)
+        }
     }
 
     fun saveForecast(forecast: ForecastList) = forecastDbHelper.use {
